@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'HelveticaLocal';
+  src: url('./fonts/Helvetica.ttf') format('truetype');
+  /* You can add other formats like woff, woff2 for wider browser compatibility */
+}
+
+body {
+  font-family: 'HelveticaLocal', sans-serif;
+}
