@@ -42,10 +42,8 @@ const SignUp = () => {
             flexDirection: "column",
           }}
         >
-          {/* Header */}
           <Header />
 
-          {/* Main content */}
           <Container
             sx={{
               mt: 6,
@@ -244,7 +242,6 @@ const SignUp = () => {
             </Paper>
           </Container>
 
-          {/* Footer */}
           <Footer />
         </Box>
       </Box>

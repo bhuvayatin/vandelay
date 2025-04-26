@@ -7,18 +7,23 @@ export const routes = [
     exact: true,
   },
   {
-    path: '/login',
+    path: '/',
     component: lazy(() => import('../pages/Login')),
     exact: true,
   },
   {
-    path: '/',
+    path: '/dashboard',
     component: lazy(() => import('../pages/Dashboard')),
     exact: true,
   },
-  // {
-  //   path: '/other',
-  //   component: lazy(() => import('../pages/OtherPage')),
-  //   exact: true,
-  // },
+  {
+    path: '/tables',
+    component: lazy(() => import('../pages/Tables')),
+    exact: true,
+  },
+  {
+    path: '/login',
+  component: lazy(() => import('../pages/Login')),
+    exact: true,
+  },
 ];

@@ -1,43 +1,27 @@
-import React from "react";
 import {
   Box,
-  Container,
   Typography,
-  TextField,
   Button,
-  FormControlLabel,
-  Checkbox,
   Link,
   Paper,
   Grid,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 import bgImage from "../assets/login_bg.png";
 import logoImage from "../assets/login_logo.png";
 import Header from "../component/Header";
 import { CustomSwitchWithLabel } from "../component/CustomSwitchWithLabel";
 import Footer from "../component/Footer";
 import CommonTextField from "../component/CommonTextField";
+import { useNavigate } from "react-router-dom";
 
-// Custom theme for consistent styling
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: "#62c2b3", // Your teal color
-    },
-  },
-  components: {
-    MuiTextField: {
-      styleOverrides: {
-        root: {
-          marginBottom: "24px",
-        },
-      },
-    },
-  },
-});
 
 const Login = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = () =>{
+    navigate("/dashboard")
+  }
   return (
     <>
       <Box>
@@ -50,8 +34,6 @@ const Login = () => {
           }}
         >
           <Header position="absolute" />
-
-          {/* Left Side - Paper with Form */}
           <Box
             sx={{
               width: "51.4%",
@@ -154,6 +136,7 @@ const Login = () => {
                   type="submit"
                   fullWidth
                   variant="contained"
+                  onClick={handleSubmit}
                   sx={{
                     mt: 3,
                     mb: 2,

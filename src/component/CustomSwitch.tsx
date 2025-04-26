@@ -1,6 +1,5 @@
 import { Switch, SwitchProps, styled } from "@mui/material";
 
-// Define the interface first
 export interface CustomSwitchProps extends SwitchProps {
   activeColor?: string;
   inactiveColor?: string;
@@ -9,7 +8,6 @@ export interface CustomSwitchProps extends SwitchProps {
   switchWidth?: number;
 }
 
-// Create the styled component
 const CustomSwitch = styled(Switch, {
   shouldForwardProp: (prop) =>
     !["activeColor", "inactiveColor", "thumbSize", "switchHeight", "switchWidth"].includes(
@@ -71,5 +69,4 @@ const CustomSwitch = styled(Switch, {
   }
 );
 
-// Export both the component and the props type
 export default CustomSwitch;

@@ -10,9 +10,9 @@ const LoadingSpinner = () => {
     >
       <CircularProgress 
         sx={{
-          color: '#62c2b3', // Your custom color
+          color: '#62c2b3', 
           '&.MuiCircularProgress-indeterminate': {
-            animationDuration: '800ms', // Optional: adjust animation speed
+            animationDuration: '800ms',
           }
         }}
         size={60}

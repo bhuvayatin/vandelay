@@ -34,5 +34,4 @@ const CustomSwitchWithLabel = ({
   );
 };
 
-// Export both components
 export { CustomSwitchWithLabel };
