@@ -1,37 +1,22 @@
-import React, { useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { useState } from "react";
+import { styled } from "@mui/material/styles";
 import {
   Box,
   Drawer,
   Typography,
   IconButton,
-  AppBar,
-  Badge,
-  Menu,
-  MenuItem,
   Grid,
   Stack,
   Avatar,
   LinearProgress,
-  Card,
-  CardContent,
   Chip,
 } from "@mui/material";
 import {
-  ShoppingCart as ShoppingCartIcon,
-  Notifications as NotificationsIcon,
-  AccountCircle as AccountCircleIcon,
-  ArrowUpward,
   MoreVert,
 } from "@mui/icons-material";
-import LanguageIcon from "@mui/icons-material/Language";
-import wallet from "../assets/wallet.png";
-import file from "../assets/file.png";
-import cart from "../assets/cart.png";
 import Header from "../component/MainHeader";
 import Sidebar from "../component/Sidebar";
 import CommonTable from "../component/CommonTable";
-import OrdersOverview from "../component/OrdersOverview";
 import member1 from "../assets/users/Image.png";
 import member2 from "../assets/users/Image (1).png";
 import member3 from "../assets/users/Image (2).png";
@@ -43,7 +28,6 @@ import comapnie1 from "../assets/companies/Icon (1).png";
 import comapnie2 from "../assets/companies/Icon (2).png";
 import comapnie3 from "../assets/companies/Icon (3).png";
 import comapnie4 from "../assets/companies/Icon (4).png";
-import comapnie5 from "../assets/companies/Icon (5).png";
 import comapnie6 from "../assets/companies/Icon.png";
 import Footer from "../component/Footer";
 
