@@ -1,13 +1,13 @@
 import { Button, ButtonProps, styled } from "@mui/material";
-import {LinkProps } from "react-router-dom";
+import {  LinkProps } from "react-router-dom";
 import React from "react";
 
 interface CustomButtonProps extends ButtonProps {
   variant?: "contained" | "outlined" | "text";
   isWhite?: boolean;
   isRounded?: boolean;
-  to?: LinkProps["to"];
-  component?: React.ElementType;
+  to?: LinkProps["to"]; 
+  component?: React.ElementType; 
 }
 
 const CustomButton = styled(Button)<CustomButtonProps>(

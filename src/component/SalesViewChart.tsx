@@ -85,7 +85,7 @@ function SalesViewChart() {
                                 fontSize: 12,
                                 dy: 10 
                             }}
-                            padding={{ left: 10, right: 10 }}
+                            padding={{ left: 10, right: 10 }} 
                         />
                         <YAxis
                             axisLine={{ stroke: "#E2E8F0" }}
