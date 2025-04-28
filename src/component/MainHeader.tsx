@@ -61,10 +61,6 @@ const Header: React.FC<HeaderProps> = ({ open, handleDrawerOpen }) => {
     ? "Dashboard"
     : path.replace("/", "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
 
-  const handleProfileMenuOpen = (event: any) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   const handleMenuClose = () => {
     setAnchorEl(null);
   };

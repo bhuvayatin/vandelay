@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { styled, useTheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import {
   Box,
   Drawer,
   Typography,
   IconButton,
-  AppBar,
   Badge,
   Menu,
   MenuItem,
@@ -71,26 +70,6 @@ const Main = styled("main", {
   }),
 }));
 
-const AppBarStyled = styled(AppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{ open?: boolean }>(({ theme, open }) => ({
-  backgroundColor: "#ffffff", 
-  color: theme.palette.text.primary,
-  boxShadow: "none",
-  borderBottom: `1px solid ${theme.palette.divider}`,
-  transition: theme.transitions.create(["margin", "width"], {
-    easing: theme.transitions.easing.sharp,
-    duration: theme.transitions.duration.leavingScreen,
-  }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
-    }),
-  }),
-}));
 
 const DrawerHeader = styled("div")(({ theme }) => ({
   display: "flex",
@@ -801,64 +780,64 @@ export default function Dashboard() {
                 }}
               >
                 <Box position="relative" zIndex={2} sx={{
-                      height: "216px",
+                  height: "216px",
                 }}>
                   <Box sx={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      flexDirection: "column",
-                      height: "100%",
-                    }}>
-                  <Box>
-                    <Typography
-                      sx={{
-                        fontWeight: 700,
-                        color: "common.white",
-                        fontSize: "18px",
-                        lineHeight: "140%",
-                      }}
-                    >
-                      Work with the Rockets
-                    </Typography>
+                    display: "flex",
+                    justifyContent: "space-between",
+                    flexDirection: "column",
+                    height: "100%",
+                  }}>
+                    <Box>
+                      <Typography
+                        sx={{
+                          fontWeight: 700,
+                          color: "common.white",
+                          fontSize: "18px",
+                          lineHeight: "140%",
+                        }}
+                      >
+                        Work with the Rockets
+                      </Typography>
 
-                    <Typography
-                      sx={{
-                        fontWeight: 400,
-                        fontSize: "14px",
-                        lineHeight: "140%",
-                      }}
-                    >
-                      Wealth creation is an evolutionarily recent positive-sum
-                      game.
-                    </Typography>
+                      <Typography
+                        sx={{
+                          fontWeight: 400,
+                          fontSize: "14px",
+                          lineHeight: "140%",
+                        }}
+                      >
+                        Wealth creation is an evolutionarily recent positive-sum
+                        game.
+                      </Typography>
 
-                    <Typography
-                      sx={{
-                        fontWeight: 400,
-                        fontSize: "14px",
-                        lineHeight: "140%",
-                      }}
-                    >
-                      It is all about who takes the opportunity first.
-                    </Typography>
-                  </Box>
+                      <Typography
+                        sx={{
+                          fontWeight: 400,
+                          fontSize: "14px",
+                          lineHeight: "140%",
+                        }}
+                      >
+                        It is all about who takes the opportunity first.
+                      </Typography>
+                    </Box>
 
-                  <Box>
-                    <Button
-                      endIcon={<ArrowForward />}
-                      sx={{
-                        color: "#FFFFFF",
-                        fontWeight: 700,
-                        fontSize: "10px",
-                        lineHeight: "150%",
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                        },
-                      }}
-                    >
-                      Read more
-                    </Button>
-                  </Box>
+                    <Box>
+                      <Button
+                        endIcon={<ArrowForward />}
+                        sx={{
+                          color: "#FFFFFF",
+                          fontWeight: 700,
+                          fontSize: "10px",
+                          lineHeight: "150%",
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                          },
+                        }}
+                      >
+                        Read more
+                      </Button>
+                    </Box>
                   </Box>
                 </Box>
               </Paper>
@@ -901,7 +880,7 @@ export default function Dashboard() {
               subtitle="30 done this month"
               columns={columns}
               rows={rows}
-              renderCell={(id, value, row) => {
+              renderCell={(id, value) => {
                 if (id === "company" && typeof value === "object") {
                   return (
                     <Stack direction="row" alignItems="center" spacing={1}>
@@ -911,7 +890,7 @@ export default function Dashboard() {
                           width: "20px",
                           height: "19.99px",
                           borderRadius: 0,
-                          objectFit: "cover", 
+                          objectFit: "cover",
                         }}
                       />
                       <Typography
@@ -956,8 +935,8 @@ export default function Dashboard() {
                                 backgroundColor: "#1976d2",
                                 color: "white",
                                 border: "2px solid white",
-                                marginLeft: idx === 0 ? 0 : "-12px", 
-                                zIndex: 6, 
+                                marginLeft: idx === 0 ? 0 : "-12px",
+                                zIndex: 6,
                               }}
                             >
                               {!member && idx + 1}
@@ -972,8 +951,8 @@ export default function Dashboard() {
                               backgroundColor: "#e0e0e0",
                               color: "#666",
                               border: "2px solid white",
-                              marginLeft: "-12px", 
-                              zIndex: 6, 
+                              marginLeft: "-12px",
+                              zIndex: 6,
                             }}
                           >
                             +{extraMembersCount}

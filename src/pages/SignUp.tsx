@@ -1,21 +1,9 @@
 import {
   Box,
-  Checkbox,
   Container,
-  Divider,
-  FormControlLabel,
   Stack,
-  TextField,
   Typography,
   Paper,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  useTheme,
-  useMediaQuery,
-  Switch,
 } from "@mui/material";
 import FacebookIcon from "@mui/icons-material/Facebook";
 import AppleIcon from "@mui/icons-material/Apple";

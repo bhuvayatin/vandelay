@@ -133,7 +133,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           <TableBody>
             {rows.map((row, rowIndex) => (
               <TableRow key={rowIndex}>
-                {columns.map((col, colIndex) => (
+                {columns.map((col) => (
                   <TableCell
                     key={col.id}
                     sx={{

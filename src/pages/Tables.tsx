@@ -371,7 +371,7 @@ const Tables = () => {
                 pedding="19px"
                 columns={columns1}
                 rows={rows1}
-                renderCell={(id, value, row) => {
+                renderCell={(id, value) => {
                   if (id === "company" && typeof value === "object") {
                     return (
                       <Stack direction="row" alignItems="center" spacing={1}>

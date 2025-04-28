@@ -6,7 +6,6 @@ import {
   Paper,
   Grid,
 } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
 import bgImage from "../assets/login_bg.png";
 import logoImage from "../assets/login_logo.png";
 import Header from "../component/Header";
