@@ -34,55 +34,49 @@ const Header = ({ position }: any) => {
 
   return (
     <>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          width: isMobile ? "100%" : "939.5px",
-          ...(position
-            ? {
-                position: position,
-                left: "50%",
-                transform: "translateX(-50%)",
-                color: "#2D3748",
-                bgcolor: "#fff",
-                py: { xs: 2, md: 3, xl: 2.19 },
-                top: "24px",
-                border: "1.5px solid #FFFFFF",
-                backdropFilter: "blur(21px)",
-                boxShadow: "0px 7px 23px 0px rgba(0, 0, 0, 0.05)",
-                px: { xs: 2, md: 3, xl: 3 },
-                borderRadius: "15px",
-              }
-            : {
-                marginLeft: "auto",
-                marginRight: "auto",
-                py: { xs: 2, md: 3, xl: 4.313 },
-              }),
-        }}
-      >
+     <Box
+  sx={{
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    width: "100%",
+    maxWidth: { xs: "90%", sm: "670px", md: "900px", lg: "1200px" },
+    mx: "auto",
+    py: { xs: 2, sm: 2.5, md: 3 },
+    px: { xs: 2, sm: 3, md: 4 },
+    ...(position && {
+      position: position,
+      top: "24px",
+      left: "50%",
+      transform: "translateX(-50%)",
+      border: "1.5px solid #FFFFFF",
+      bgcolor: "#fff",
+      color: "#2D3748",
+      boxShadow: "0px 7px 23px rgba(0, 0, 0, 0.05)",
+      backdropFilter: "blur(21px)",
+      borderRadius: "15px",
+    }),
+  }}
+>
+
+
         <Typography
           fontWeight={700}
+          fontSize={{ xs: "1rem", sm: "1.25rem", md: "1.5rem" }}
           sx={{
-            ...(position
-              ? {
-                  color: "#2D3748",
-                }
-              : {
-                  color: "white",
-                }),
+            color: position ? "#2D3748" : "#fff",
           }}
         >
           VANDELAY INDUSTRIES
         </Typography>
+
 
         {isMobile ? (
           <>
             <IconButton
               onClick={() => setDrawerOpen(true)}
               sx={{
-                color:position ? "#000" : "#fff"
+                color: position ? "#000" : "#fff"
               }}
             >
               <MenuIcon />
@@ -100,7 +94,7 @@ const Header = ({ position }: any) => {
                         component={Link}
                         to={item.to}
                         onClick={() => setDrawerOpen(false)}
-                        
+
                       >
                         <ListItemText primary={item.label} />
                       </ListItemButton>
@@ -131,27 +125,27 @@ const Header = ({ position }: any) => {
                 sx={{
                   ...(position
                     ? {
-                        color: "#2D3748",
-                      }
+                      color: "#2D3748",
+                    }
                     : {
-                        color: "#fff",
-                      }),
+                      color: "#fff",
+                    }),
                 }}
               >
                 {item.label}
               </CommonButton>
             ))}
-            <CommonButton isRounded 
-            sx={{
-              ...(position
-                ? {
-                  background: "linear-gradient(to right, #313860, #151928)",
-                  color:"#FFFFFF"
+            <CommonButton isRounded
+              sx={{
+                ...(position
+                  ? {
+                    background: "linear-gradient(to right, #313860, #151928)",
+                    color: "#FFFFFF"
                   }
-                : {
-                  background:"white"
+                  : {
+                    background: "white"
                   }),
-            }}
+              }}
             >
               Free Download
             </CommonButton>

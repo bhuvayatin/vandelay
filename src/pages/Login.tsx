@@ -5,6 +5,8 @@ import {
   Link,
   Paper,
   Grid,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
 import bgImage from "../assets/login_bg.png";
 import logoImage from "../assets/login_logo.png";
@@ -17,8 +19,10 @@ import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const handleSubmit = () =>{
+  const handleSubmit = () => {
     navigate("/dashboard")
   }
   return (
@@ -27,28 +31,32 @@ const Login = () => {
         <Box
           sx={{
             display: "flex",
+            flexDirection: isMobile ? "column" : "",
             height: "100vh",
             overflow: "hidden",
+            justifyContent: isMobile ? "center" : "",
+            alignItems: isMobile ? "center" : "",
             position: "relative",
           }}
         >
           <Header position="absolute" />
           <Box
             sx={{
-              width: "51.4%",
-              minWidth: "450px",
+              width: isMobile ? "90%" : "51.4%",
+              minWidth: isMobile ? "300px" : "450px",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
-              padding: "40px",
+              order: isMobile ? 1 : "",
+              margin: isMobile ? "20px auto" : "0 auto",
             }}
           >
             <Paper
               elevation={0}
               sx={{
-                width: "30%",
-                minWidth: "350px",
-                padding: "48px",
+                width: isMobile ? "100%" : "30%",
+                minWidth: isMobile ? "" : "350px",
+                padding: isMobile ? "24px" : "48px",
                 borderRadius: "16px",
               }}
             >
@@ -66,7 +74,7 @@ const Login = () => {
                     fontWeight: 700,
                     mb: 1.06,
                     color: "#4FD1C5",
-                    fontSize: "32px",
+                    fontSize: isMobile ? "28px" : "32px",
                     lineHeight: "130%",
                   }}
                 >
@@ -87,7 +95,7 @@ const Login = () => {
 
               <Box component="form" noValidate>
                 <Box sx={{
-                    marginBottom:3
+                  marginBottom: 3
                 }}>
                   <CommonTextField
                     label="Email"
@@ -96,7 +104,7 @@ const Login = () => {
                   />
                 </Box>
                 <Box sx={{
-                    marginBottom:3
+                  marginBottom: 3
                 }}>
                   <CommonTextField
                     label="Password"
@@ -173,8 +181,8 @@ const Login = () => {
             </Paper>
           </Box>
 
-          <Box
-            sx={{
+          {!isMobile && (
+            <Box sx={{
               flex: 1,
               width: "862px",
               backgroundImage: `url(${bgImage})`,
@@ -185,15 +193,15 @@ const Login = () => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
-            }}
-          >
-            <Box
-              component="img"
-              src={logoImage}
-              alt="Logo"
-              sx={{ width: 357.5, height: 91.8 }}
-            />
-          </Box>
+            }}>
+              <Box
+                component="img"
+                src={logoImage}
+                alt="Logo"
+                sx={{ width: "357.5px", height: "91.8px" }}
+              />
+            </Box>
+          )}
         </Box>
         <Footer />
       </Box>

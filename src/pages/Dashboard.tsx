@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { styled } from "@mui/material/styles";
+import { useEffect, useState } from "react";
+import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
   Drawer,
@@ -15,6 +15,7 @@ import {
   CardContent,
   Paper,
   Button,
+  useMediaQuery,
 } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import {
@@ -52,23 +53,28 @@ import Footer from "../component/Footer";
 const drawerWidth = 266.5;
 
 const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{ open?: boolean }>(({ theme, open }) => ({
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "isMobile",
+})<{ open?: boolean; isMobile?: boolean }>(({ theme, open, isMobile }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
-  transition: theme.transitions.create("margin", {
+  transition: theme.transitions.create(["margin", "width"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
-  ...(open && {
-    transition: theme.transitions.create("margin", {
+  marginLeft: 0, 
+  width: "100%",  
+  ...(open && !isMobile && {
+    width: `calc(100% - ${drawerWidth}px)`,
+    transition: theme.transitions.create(["margin", "width"], {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
-    marginLeft: 0,
+  }),
+  ...(!open && isMobile && {
+    padding: theme.spacing(0),
   }),
 }));
+
 
 
 const DrawerHeader = styled("div")(({ theme }) => ({
@@ -80,12 +86,23 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 export default function Dashboard() {
-  const [open, setOpen] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [open, setOpen] = useState(!isMobile);
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(false); 
+    } else {
+      setOpen(true); 
+    }
+  }, [isMobile]);
   const [anchorEl, setAnchorEl] = useState(null);
   const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = useState(null);
 
   const isMenuOpen = Boolean(anchorEl);
   const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+
+
 
   const columns = [
     { id: "company", label: "COMPANIES" },
@@ -155,6 +172,9 @@ export default function Dashboard() {
     setOpen(true);
   };
 
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
 
   const handleProfileMenuOpen = (event: any) => {
     setAnchorEl(event.currentTarget);
@@ -249,9 +269,10 @@ export default function Dashboard() {
       <Header open={open} handleDrawerOpen={handleDrawerOpen} />
       {renderMobileMenu}
       {renderMenu}
+
       <Drawer
         sx={{
-          width: drawerWidth,
+          width: open && !isMobile ? drawerWidth : 0,
           flexShrink: 0,
           "& .MuiDrawer-paper": {
             width: drawerWidth,
@@ -263,17 +284,20 @@ export default function Dashboard() {
             overflow: "hidden",
           },
         }}
-        variant="persistent"
+        variant={isMobile ? "temporary" : "persistent"} 
         anchor="left"
         open={open}
+        onClose={handleDrawerClose}
+        ModalProps={{
+          keepMounted: true, 
+        }}
       >
         <Sidebar open={open} />
       </Drawer>
+
       <Main
         open={open}
-        sx={{
-          padding: 3.94,
-        }}
+        isMobile={isMobile}
       >
         <DrawerHeader />
 
@@ -284,7 +308,7 @@ export default function Dashboard() {
             mb: 3,
           }}
         >
-          <Grid size={{ xs: 6, md: 3 }}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card
               sx={{
                 flex: 1,
@@ -372,7 +396,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={{ xs: 6, md: 3 }}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card
               sx={{
                 flex: 1,
@@ -462,7 +486,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={{ xs: 6, md: 3 }}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card
               sx={{
                 flex: 1,
@@ -550,7 +574,7 @@ export default function Dashboard() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid size={{ xs: 6, md: 3 }}>
+          <Grid size={{ xs: 12, md: 3 }}>
             <Card
               sx={{
                 flex: 1,
@@ -662,7 +686,7 @@ export default function Dashboard() {
               }}
             >
               <Grid container spacing={2}>
-                <Grid size={7}>
+                <Grid size={{ xs: 12, md: 7 }}>
                   <Box
                     sx={{
                       display: "flex",
@@ -732,7 +756,7 @@ export default function Dashboard() {
                     </Box>
                   </Box>
                 </Grid>
-                <Grid size={5}>
+                <Grid size={{ xs: 12, md: 5 }}>
                   <Box
                     sx={{
                       flex: 1,
@@ -748,8 +772,7 @@ export default function Dashboard() {
                       justifyContent: "center",
                       alignItems: "center",
                     }}
-                  >
-                  </Box>
+                  ></Box>
                 </Grid>
               </Grid>
             </Box>
@@ -779,15 +802,21 @@ export default function Dashboard() {
                   color: "white",
                 }}
               >
-                <Box position="relative" zIndex={2} sx={{
-                  height: "216px",
-                }}>
-                  <Box sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    flexDirection: "column",
-                    height: "100%",
-                  }}>
+                <Box
+                  position="relative"
+                  zIndex={2}
+                  sx={{
+                    height: "216px",
+                  }}
+                >
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      flexDirection: "column",
+                      height: "100%",
+                    }}
+                  >
                     <Box>
                       <Typography
                         sx={{
@@ -1009,8 +1038,15 @@ export default function Dashboard() {
             <OrdersOverview />
           </Grid>
         </Grid>
-        <Footer sx={{ marginTop: "0", backgroundColor: "#f8f8f8", padding: "20px", width: "98%" }} style="0" />
-
+        <Footer
+          sx={{
+            marginTop: "0",
+            backgroundColor: "#f8f8f8",
+            padding: "20px",
+            width: isMobile?"90%":"98%",
+          }}
+          style="0"
+        />
       </Main>
     </Box>
   );

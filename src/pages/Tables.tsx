@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { styled } from "@mui/material/styles";
+import { useEffect, useState } from "react";
+import { styled, useTheme } from "@mui/material/styles";
 import {
   Box,
   Drawer,
@@ -10,6 +10,7 @@ import {
   Avatar,
   LinearProgress,
   Chip,
+  useMediaQuery,
 } from "@mui/material";
 import {
   MoreVert,
@@ -34,21 +35,25 @@ import Footer from "../component/Footer";
 const drawerWidth = 266.5;
 
 const Main = styled("main", {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{ open?: boolean }>(({ theme, open }) => ({
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "isMobile",
+})<{ open?: boolean; isMobile?: boolean }>(({ theme, open, isMobile }) => ({
   flexGrow: 1,
   padding: theme.spacing(3),
   transition: theme.transitions.create("margin", {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  marginLeft: `-${drawerWidth}px`,
+  marginLeft: 0, 
+  width: "100%",  
   ...(open && {
     transition: theme.transitions.create("margin", {
       easing: theme.transitions.easing.easeOut,
       duration: theme.transitions.duration.enteringScreen,
     }),
     marginLeft: 0,
+  }),
+  ...(!open && isMobile && {
+    padding: theme.spacing(0),
   }),
 }));
 
@@ -61,9 +66,22 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const Tables = () => {
-  const [open, setOpen] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+  const [open, setOpen] = useState(!isMobile);
+  useEffect(() => {
+    if (isMobile) {
+      setOpen(false); 
+    } else {
+      setOpen(true); 
+    }
+  }, [isMobile]);
   const handleDrawerOpen = () => {
     setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
   };
 
   const columns = [
@@ -202,33 +220,35 @@ const Tables = () => {
   return (
     <>
       <Box sx={{ display: "flex" }}>
-        <Header open={open} handleDrawerOpen={handleDrawerOpen} />
+      <Header open={open} handleDrawerOpen={handleDrawerOpen} />
 
-        <Drawer
-          sx={{
+      <Drawer
+        sx={{
+          width: open && !isMobile ? drawerWidth : 0,
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
             width: drawerWidth,
-            flexShrink: 0,
-            "& .MuiDrawer-paper": {
-              width: drawerWidth,
-              boxSizing: "border-box",
-              backgroundColor: "#F8F9FA",
-              borderRight: "none",
-              px: "18px",
-              pt: 3,
-              overflow: "hidden",
-            },
-          }}
-          variant="persistent"
-          anchor="left"
-          open={open}
-        >
-          <Sidebar open={open} />
-        </Drawer>
+            boxSizing: "border-box",
+            backgroundColor: "#F8F9FA",
+            borderRight: "none",
+            px: "18px",
+            pt: 3,
+            overflow: "hidden",
+          },
+        }}
+        variant={isMobile ? "temporary" : "persistent"} 
+        anchor="left"
+        open={open}
+        onClose={handleDrawerClose} 
+        ModalProps={{
+          keepMounted: true, 
+        }}
+      >
+        <Sidebar open={open} />
+      </Drawer>
         <Main
           open={open}
-          sx={{
-            padding: 3.94,
-          }}
+          isMobile={isMobile}
         >
           <DrawerHeader />
 
@@ -469,7 +489,15 @@ const Tables = () => {
               />
             </Grid>
           </Grid>
-          <Footer sx={{ marginTop: "0", backgroundColor: "#f8f8f8", padding: "20px", width: "98%" }} style="0" />
+          <Footer
+          sx={{
+            marginTop: "0",
+            backgroundColor: "#f8f8f8",
+            padding: "20px",
+            width: isMobile?"90%":"98%",
+          }}
+          style="0"
+        />
         </Main>
       </Box>
     </>

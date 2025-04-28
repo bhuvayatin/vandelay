@@ -84,7 +84,7 @@ const ActiveUsersCard = () => {
 
                 <Grid container spacing={3}>
                     {metrics.map((metric, index) => (
-                        <Grid size={3} key={index}>
+                        <Grid size={{ xs: 12, md: 3 }} key={index}>
                             <Stack spacing={1}>
                                 <Box display="flex" alignItems="center" gap={1}>
                                     <Avatar

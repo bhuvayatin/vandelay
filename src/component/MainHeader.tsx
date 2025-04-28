@@ -10,6 +10,8 @@ import {
   MenuItem,
   Link,
   styled,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import {
   Menu as MenuIcon,
@@ -22,28 +24,32 @@ import { useLocation } from "react-router-dom";
 
 const drawerWidth = 266.5;
 
-
 const AppBarStyled = styled(AppBar, {
-  shouldForwardProp: (prop) => prop !== "open",
-})<{ open?: boolean }>(({ theme, open }) => ({
+  shouldForwardProp: (prop) => prop !== "open" && prop !== "isMobile",
+})<{ open?: boolean; isMobile?: boolean }>(({ theme, open, isMobile }) => ({
   backgroundColor: "#F8F9FA",
   borderBottom: "none",
-  mt: 2.8,
-  px: 3,
+  marginTop: theme.spacing(0),
+  paddingLeft: theme.spacing(3),
+  paddingRight: theme.spacing(3),
   color: theme.palette.text.primary,
   boxShadow: "none",
-  transition: theme.transitions.create(["margin", "width"], {
+  marginLeft: 0,
+  width: "100%",
+  transition: theme.transitions.create(["margin", "width", "padding"], {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
-  ...(open && {
-    width: `calc(100% - ${drawerWidth}px)`,
-    marginLeft: `${drawerWidth}px`,
-    transition: theme.transitions.create(["margin", "width"], {
-      easing: theme.transitions.easing.easeOut,
-      duration: theme.transitions.duration.enteringScreen,
+
+  ...(open &&
+    !isMobile && {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: `${drawerWidth}px`,
+      transition: theme.transitions.create(["margin", "width", "padding"], {
+        easing: theme.transitions.easing.easeOut,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
     }),
-  }),
 }));
 
 interface HeaderProps {
@@ -55,93 +61,107 @@ const Header: React.FC<HeaderProps> = ({ open, handleDrawerOpen }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isMenuOpen = Boolean(anchorEl);
 
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const location = useLocation();
   const path = location.pathname;
-  const formattedTitle = path === "/"
-    ? "Dashboard"
-    : path.replace("/", "").replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  const formattedTitle =
+    path === "/"
+      ? "Dashboard"
+      : path
+          .replace("/", "")
+          .replace(/-/g, " ")
+          .replace(/\b\w/g, (c) => c.toUpperCase());
 
   const handleMenuClose = () => {
     setAnchorEl(null);
   };
 
   return (
-    <AppBarStyled position="fixed" open={open}>
+    <AppBarStyled position="fixed" open={open} isMobile={isMobile}>
       <Toolbar
         sx={{
           justifyContent: "space-between",
           padding: 0,
-          pt:"22.5px",
+          pt: isMobile ? "0px" :"22.5px",
         }}
       >
-        <IconButton
-          color="inherit"
-          aria-label="open drawer"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{ mr: 2, ...(open && { display: "none" }) }}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+          }}
         >
-          <MenuIcon />
-        </IconButton>
-        <Box>
-          <Box
-            sx={{
-              flexGrow: 1,
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              marginBottom: 0.7,
-            }}
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{ mr: 2, ...(open && { display: "none" }) }}
           >
-            <Typography
-              variant="subtitle2"
-              component="span"
+            <MenuIcon />
+          </IconButton>
+          <Box>
+            <Box
               sx={{
-                color: "#a0aec1",
-                fontWeight: 400,
-                fontSize: "12px",
-                lineHeight: "150%",
+                flexGrow: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                marginBottom: 0.7,
               }}
             >
-              Page
-            </Typography>
+              <Typography
+                variant="subtitle2"
+                component="span"
+                sx={{
+                  color: "#a0aec1",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "150%",
+                }}
+              >
+                Page
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                component="span"
+                sx={{
+                  color: "#000000",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "150%",
+                }}
+              >
+                /
+              </Typography>
+              <Typography
+                variant="subtitle2"
+                component="span"
+                sx={{
+                  color: "#000000",
+                  fontWeight: 400,
+                  fontSize: "12px",
+                  lineHeight: "150%",
+                }}
+              >
+                {formattedTitle}
+              </Typography>
+            </Box>
             <Typography
               variant="subtitle2"
               component="span"
               sx={{
-                color: "#000000",
-                fontWeight: 400,
-                fontSize: "12px",
-                lineHeight: "150%",
-              }}
-            >
-              /
-            </Typography>
-            <Typography
-              variant="subtitle2"
-              component="span"
-              sx={{
-                color: "#000000",
-                fontWeight: 400,
-                fontSize: "12px",
-                lineHeight: "150%",
+                color: "#2D3748",
+                fontWeight: 700,
+                fontSize: "14px",
+                lineHeight: "140%",
               }}
             >
               {formattedTitle}
             </Typography>
           </Box>
-          <Typography
-            variant="subtitle2"
-            component="span"
-            sx={{
-              color: "#2D3748",
-              fontWeight: 700,
-              fontSize: "14px",
-              lineHeight: "140%",
-            }}
-          >
-            {formattedTitle}
-          </Typography>
         </Box>
         <Box
           sx={{
@@ -175,7 +195,11 @@ const Header: React.FC<HeaderProps> = ({ open, handleDrawerOpen }) => {
               Sign In
             </Typography>
           </Link>
-          <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+          <IconButton
+            size="large"
+            aria-label="show 4 new mails"
+            color="inherit"
+          >
             <Badge color="error">
               <SettingsIcon
                 sx={{
