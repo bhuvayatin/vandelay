@@ -1,16 +1,14 @@
-import { TextField, OutlinedTextFieldProps, Typography, Box, InputAdornment } from "@mui/material";
+import { TextField, OutlinedTextFieldProps, Typography, Box } from "@mui/material";
 import React from "react";
-import SearchIcon from "@mui/icons-material/Search";
 
 interface CommonTextFieldProps extends Omit<OutlinedTextFieldProps, 'variant'> {
   label?: string;
   labelStyle?: React.CSSProperties;
   containerStyle?: React.CSSProperties;
-  withSearchIcon?: boolean;
 }
 
 const CommonTextField = React.forwardRef<HTMLDivElement, CommonTextFieldProps>(
-  ({ label, labelStyle, containerStyle, withSearchIcon, InputProps, sx, ...props }, ref) => {
+  ({ label, labelStyle, containerStyle, ...props }, ref) => {
     return (
       <Box sx={{ ...containerStyle }}>
         {label && (
@@ -30,20 +28,21 @@ const CommonTextField = React.forwardRef<HTMLDivElement, CommonTextFieldProps>(
         <TextField
           ref={ref}
           fullWidth
-          variant="outlined"
-          InputProps={{
-            startAdornment: withSearchIcon ? (
-              <InputAdornment position="start">
-                <SearchIcon sx={{ color: "#2D3748" }} />
-              </InputAdornment>
-            ) : null,
-            ...InputProps,
-          }}
+          variant="outlined" 
           sx={{
             "& .MuiOutlinedInput-root": {
-              borderRadius: "12px",
+              borderRadius: "15px",
               backgroundColor: "white",
+              paddingRight: "20px",
+              paddingLeft: "20px",
+              height: "50px",
+              "& input": {
+                height: "50px",
+                padding: 0,
+                boxSizing: "border-box",
+              },
               "& fieldset": {
+                borderWidth: "1px",
                 borderColor: "#E2E8F0",
               },
               "&:hover fieldset": {
@@ -53,15 +52,7 @@ const CommonTextField = React.forwardRef<HTMLDivElement, CommonTextFieldProps>(
                 borderColor: "#62c2b3",
               },
             },
-            "& .MuiInputBase-input": {
-              py: "10px",
-              fontSize: "14px",
-              paddingLeft: withSearchIcon ? "8px" : "20px",
-            },
-            maxWidth: withSearchIcon ? 400 : undefined,
-            mr: withSearchIcon ? 2 : undefined,
-            flexGrow: withSearchIcon ? 1 : undefined,
-            ...sx,
+            ...props.sx,
           }}
           {...props}
         />

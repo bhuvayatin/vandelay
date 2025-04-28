@@ -28,7 +28,6 @@ type CommonTableProps = {
   rows: Row[];
   renderCell: (id: string, value: any, row?: Row) => React.ReactNode;
   showMenuIcon?: boolean;
-  pedding?: string
 };
 
 const CommonTable: React.FC<CommonTableProps> = ({
@@ -37,7 +36,6 @@ const CommonTable: React.FC<CommonTableProps> = ({
   columns,
   rows,
   renderCell,
-  pedding,
   showMenuIcon = false,
 }) => {
   return (
@@ -52,7 +50,7 @@ const CommonTable: React.FC<CommonTableProps> = ({
           direction="row"
           justifyContent="space-between"
           alignItems="center"
-          mb={subtitle ? 0 : 2}
+          mb={subtitle ? 0 : "1px"}
         >
           {title && (
             <Typography
@@ -131,22 +129,15 @@ const CommonTable: React.FC<CommonTableProps> = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {rows.map((row, rowIndex) => (
-              <TableRow key={rowIndex}>
-                {columns.map((col, colIndex) => (
-                  <TableCell
-                    key={col.id}
-                    sx={{
-                      padding: pedding ?? '21px',
-                      borderBottom: rowIndex === rows.length - 1 ? 'none' : '1px solid #eee', 
-                    }}
-                  >
+            {rows.map((row, i) => (
+              <TableRow key={i} sx={{ borderBottom: "1px solid #eee" }}>
+                {columns.map((col) => (
+                  <TableCell key={col.id} sx={{ borderBottom: "none", padding: "19px" }}>
                     {renderCell(col.id, row[col.id], row)}
                   </TableCell>
                 ))}
               </TableRow>
             ))}
-
           </TableBody>
         </Table>
       </TableContainer>

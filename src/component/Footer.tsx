@@ -1,38 +1,28 @@
-import { Box, Typography, Link, Stack, useMediaQuery, useTheme, SxProps, Theme } from "@mui/material";
+import { Box, Typography, Link, Stack, useMediaQuery, useTheme } from "@mui/material";
 
-interface FooterProps {
-  sx?: SxProps<Theme>;
-  style?: string
-}
-
-const Footer = ({ sx, style }: FooterProps) => {
+const Footer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
-
   return (
     <Box
       sx={{
         display: "flex",
         justifyContent: "space-between",
         alignItems: "center",
-        width: isMobile ? "100%" : "939.5px",
+        width:isMobile ? "100%" : "939.5px",
         marginLeft: "auto",
         marginRight: "auto",
-        marginTop: isMobile ? "0px" : "122px",
-        paddingBottom: isMobile ? "20px" : "40px",
+        marginTop:isMobile ? "0px" : "122px",
+        paddingBottom:isMobile ? "20px" : "40px",
         color: "#A0AEC0",
         fontSize: "14px",
         flexWrap: "wrap",
-        flexDirection: isMobile ? "column" : "row",
-        ...sx, 
+        flexDirection:isMobile ? "column" : "row"
       }}
     >
-      <Typography
-        variant="caption"
-        sx={{
-          marginBottom: style ?? "20px",
-        }}
-      >
+      <Typography variant="caption" sx={{
+        marginBottom:"20px"
+      }}>
         © 2025, Made with Lorem for a better web
       </Typography>
       <Stack direction={"row"} spacing={isMobile ? 2 : 4}>

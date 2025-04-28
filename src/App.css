@@ -1,10 +1,12 @@
 @font-face {
-  font-family: "HelveticaLocal";
-  src: url("./fonts/Helvetica.ttf") format("truetype");
-  /* You can add other formats like woff, woff2 for wider browser compatibility */
+  font-family: 'HelveticaLocal';
+  src: url('./fonts/Helvetica.ttf') format('truetype');
 }
 
 body {
-  font-family: "HelveticaLocal", sans-serif;
-  background-color: #f8f9fa;
+  font-family: 'HelveticaLocal', sans-serif !important;
+background-color: #F8F9FA;
+}
+p{
+  font-family: 'HelveticaLocal', sans-serif !important;
 }

@@ -17,7 +17,6 @@ import image4 from "../assets/order/Icon (9).png"
 import image5 from "../assets/order/Icon (10).png"
 import image6 from "../assets/order/Icon (11).png"
 
-
 const OrdersOverview: React.FC = () => {
     const orders = [
         {
@@ -87,7 +86,7 @@ const OrdersOverview: React.FC = () => {
 
                 <Box sx={{
                     position: 'relative',
-                    pl: 4,
+                    pl: 4, 
                 }}>
                     <Box sx={{
                         position: 'absolute',
@@ -128,7 +127,7 @@ const OrdersOverview: React.FC = () => {
                                             width: 16,
                                             height: 16,
                                             borderRadius: 0,
-                                            objectFit: 'cover', 
+                                            objectFit: 'cover',
                                         }}
                                     />
                                 </Box>

@@ -44,7 +44,7 @@ const SalesChart = () => {
             axisLine={false} 
             tickLine={false}
             tick={{ fill: '#fff' }}
-            ticks={[0, 100, 200, 300, 400, 500]} 
+            ticks={[0, 100, 200, 300, 400, 500]}
           />
           <Tooltip 
             contentStyle={{
